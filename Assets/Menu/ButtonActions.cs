@@ -25,7 +25,7 @@ public class ButtonActions : MonoBehaviour
         ms = GameObject.Find("Canvas").GetComponent<MenuScript>();
         int i = int.Parse("" + gameObject.name);
         staticLoadedMap.loadedMap = ms.mco.mc[i];
-        staticLoadedMap.loadedMap.branch = ""+ms.mco.mc[i].id;
+        //staticLoadedMap.loadedMap.id_usuario = ""+ms.mco.mc[i].id;
         SceneManager.LoadScene("Editor");
     }
 

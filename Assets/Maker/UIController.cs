@@ -45,7 +45,6 @@ public class UIController : MonoBehaviour
         if (mS.startTile == null || mS.endTile == null)
             return;
         data.SetText("2222-10-22");
-        branch.SetText("Branch: " + mS.mapaInfo.branch);
         PopupSave.SetActive(true);
     }
     public void closePopup()
@@ -70,6 +69,7 @@ public class UIController : MonoBehaviour
         mS.mapaInfo.data = "" + data.text;
         mS.mapaInfo.json = JsonUtility.ToJson(tempTileList);
         mS.mapJson = JsonUtility.ToJson(mS.mapaInfo);
+        mS.mapaInfo.id_usuarios = staticLoadedMap.contaID;
 
         StartCoroutine(postRequest(mS.mapJson));
         

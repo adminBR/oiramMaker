@@ -11,8 +11,11 @@ public class MenuScript : MonoBehaviour
     int lastMenuOpen = 0;
 
     public GameObject mapPanelPrefab;
-    public GameObject panelParent;
+    public GameObject panelParentMenu2;
+    public GameObject panelParentMenu3;
     public TMP_InputField apiField;
+
+    public TMP_InputField seleIDField;
 
     public MapaClassOBJ mco;
 
@@ -47,15 +50,24 @@ public class MenuScript : MonoBehaviour
         {
             StartCoroutine(getRequest());
         }
+        if (id == 2)
+        {
+            StartCoroutine(getRequestUsuario());
+            Debug.Log("kekekke");
+        }
     }
     public void refreshMaps()
     {
+        foreach (Transform child in panelParentMenu2.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
         StartCoroutine(getRequest());
     }
 
     IEnumerator getRequest()
     {
-        UnityWebRequest www = UnityWebRequest.Get(staticLoadedMap.APIURL);
+        UnityWebRequest www = UnityWebRequest.Get(staticLoadedMap.APIURL + "/" + seleIDField.text);
 
         yield return www.SendWebRequest();
 
@@ -74,23 +86,52 @@ public class MenuScript : MonoBehaviour
         Debug.Log("Map Loaded");
     }
 
+    IEnumerator getRequestUsuario()
+    {
+        UnityWebRequest www = UnityWebRequest.Get(staticLoadedMap.APIURL + "/" + staticLoadedMap.contaID);
+
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.LogError(www.error);
+            yield break;
+        }
+
+        string mapas = www.downloadHandler.text;
+        Debug.Log("" + www.downloadHandler.text);
+        mapas = "{\"mc\":" + mapas + "}";
+
+        mco = JsonUtility.FromJson<MapaClassOBJ>(mapas); //carregando todos os mapas na array
+
+        for (int i = 0; i < mco.mc.Length; i++)
+        {
+            GameObject temp = Instantiate(mapPanelPrefab, mapPanelPrefab.transform.position, Quaternion.identity, panelParentMenu3.transform);
+
+            string tempID = "" + mco.mc[i].id;
+            temp.name = "" + (i);
+            temp.transform.Find("Map_name").GetComponent<TextMeshProUGUI>().SetText("" + mco.mc[i].nome);
+            temp.transform.Find("Map_id").GetComponent<TextMeshProUGUI>().SetText("" + tempID);
+            temp.transform.Find("Map_creator").GetComponent<TextMeshProUGUI>().SetText("" + mco.mc[i].criador);
+            temp.transform.Find("Map_branch").GetComponent<TextMeshProUGUI>().SetText("" + mco.mc[i].id_usuarios);
+        }
+
+        Debug.Log("Map Loaded");
+    }
+
     public void loadPanelMapas(MapaClassOBJ classOBJ) 
     {
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < classOBJ.mc.Length; i++)
         {
-            if(i+lastMap > classOBJ.mc.Length-1)
-            {
-                lastMap += i;
-                break;
-            }
-            GameObject temp = Instantiate(mapPanelPrefab, mapPanelPrefab.transform.position, Quaternion.identity, panelParent.transform);
+            
+            GameObject temp = Instantiate(mapPanelPrefab, mapPanelPrefab.transform.position, Quaternion.identity, panelParentMenu2.transform);
 
-            string tempID = ""+classOBJ.mc[i + lastMap].id;
+            string tempID = ""+classOBJ.mc[i].id;
             temp.name = ""+(i+lastMap);
-            temp.transform.Find("Map_name").GetComponent<TextMeshProUGUI>().SetText("" + classOBJ.mc[i + lastMap].nome);
+            temp.transform.Find("Map_name").GetComponent<TextMeshProUGUI>().SetText("" + classOBJ.mc[i].nome);
             temp.transform.Find("Map_id").GetComponent<TextMeshProUGUI>().SetText("" + tempID);
-            temp.transform.Find("Map_creator").GetComponent<TextMeshProUGUI>().SetText("" + classOBJ.mc[i + lastMap].criador);
-            temp.transform.Find("Map_branch").GetComponent<TextMeshProUGUI>().SetText("" + classOBJ.mc[i + lastMap].branch);
+            temp.transform.Find("Map_creator").GetComponent<TextMeshProUGUI>().SetText("" + classOBJ.mc[i].criador);
+            temp.transform.Find("Map_branch").GetComponent<TextMeshProUGUI>().SetText("" + mco.mc[i].id_usuarios);
         }
         
     }
@@ -108,7 +149,7 @@ public class MenuScript : MonoBehaviour
         tempMapaClass.nome = "new map";
         tempMapaClass.criador = "new creator";
         tempMapaClass.json = "{}";
-        tempMapaClass.branch = "NEW";
+        tempMapaClass.id_usuarios = staticLoadedMap.contaID;
         staticLoadedMap.loadedMap = tempMapaClass;
         SceneManager.LoadScene("Editor");
     }

@@ -3348,7 +3348,7 @@ MonoBehaviour:
     criador: k
     json: '{"tList":[{"position":{"x":-6,"y":-1},"rotation":0,"TileId":0},{"position":{"x":6,"y":-2},"rotation":0,"TileId":1},{"position":{"x":-7,"y":-3},"rotation":0,"TileId":3},{"position":{"x":-6,"y":-3},"rotation":0,"TileId":3},{"position":{"x":-5,"y":-3},"rotation":0,"TileId":3},{"position":{"x":-4,"y":-3},"rotation":0,"TileId":3},{"position":{"x":-3,"y":-3},"rotation":0,"TileId":3},{"position":{"x":-2,"y":-3},"rotation":0,"TileId":3},{"position":{"x":-1,"y":-3},"rotation":0,"TileId":3},{"position":{"x":0,"y":-3},"rotation":0,"TileId":3},{"position":{"x":1,"y":-3},"rotation":0,"TileId":3},{"position":{"x":2,"y":-3},"rotation":0,"TileId":3},{"position":{"x":3,"y":-3},"rotation":0,"TileId":3},{"position":{"x":4,"y":-3},"rotation":0,"TileId":3},{"position":{"x":5,"y":-3},"rotation":0,"TileId":3},{"position":{"x":6,"y":-3},"rotation":0,"TileId":3},{"position":{"x":-6,"y":-2},"rotation":0,"TileId":3},{"position":{"x":0,"y":-2},"rotation":0,"TileId":3},{"position":{"x":0,"y":-1},"rotation":0,"TileId":3},{"position":{"x":0,"y":0},"rotation":0,"TileId":3},{"position":{"x":7,"y":-3},"rotation":0,"TileId":3}]}'
     data: 1111-11-11
-    branch: k
+    id_usuarios: 0
 --- !u!4 &1340643544
 Transform:
   m_ObjectHideFlags: 0
@@ -3936,7 +3936,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1480346538
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5024,7 +5024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2096293098
 RectTransform:
   m_ObjectHideFlags: 0

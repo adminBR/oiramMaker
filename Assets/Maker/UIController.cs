@@ -77,7 +77,7 @@ public class UIController : MonoBehaviour
 
     IEnumerator postRequest(string map)
     {
-        var request = new UnityWebRequest(staticLoadedMap.APIURL, "POST");
+        var request = new UnityWebRequest(staticLoadedMap.APIURL + "/mapas", "POST");
         byte[] bodyRaw = Encoding.UTF8.GetBytes(map);
         request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();

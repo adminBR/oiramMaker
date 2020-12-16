@@ -225,7 +225,7 @@ public class MakerScript : MonoBehaviour
 
     IEnumerator getRequest(int id)
     {
-        UnityWebRequest www = UnityWebRequest.Get(staticLoadedMap.APIURL + "/" + id);
+        UnityWebRequest www = UnityWebRequest.Get(staticLoadedMap.APIURL + "/mapas/" + id);
 
         yield return www.SendWebRequest();
 

@@ -11,6 +11,8 @@ public class MenuScript : MonoBehaviour
     int lastMenuOpen = 0;
 
     public GameObject mapPanelPrefab;
+    public GameObject mapPanelPrefabUsuario;
+
     public GameObject panelParentMenu2;
     public GameObject panelParentMenu3;
     public TMP_InputField apiField;
@@ -48,12 +50,11 @@ public class MenuScript : MonoBehaviour
 
         if(id == 1)
         {
-            StartCoroutine(getRequest());
+            refreshMaps();
         }
         if (id == 2)
         {
-            StartCoroutine(getRequestUsuario());
-            Debug.Log("kekekke");
+            refreshMapsUsuario();
         }
     }
     public void refreshMaps()
@@ -64,10 +65,18 @@ public class MenuScript : MonoBehaviour
         }
         StartCoroutine(getRequest());
     }
+    public void refreshMapsUsuario()
+    {
+        foreach (Transform child in panelParentMenu3.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        StartCoroutine(getRequestUsuario());
+    }
 
     IEnumerator getRequest()
     {
-        UnityWebRequest www = UnityWebRequest.Get(staticLoadedMap.APIURL + "/" + seleIDField.text);
+        UnityWebRequest www = UnityWebRequest.Get(staticLoadedMap.APIURL + "/mapas/" + seleIDField.text);
 
         yield return www.SendWebRequest();
 
@@ -88,7 +97,7 @@ public class MenuScript : MonoBehaviour
 
     IEnumerator getRequestUsuario()
     {
-        UnityWebRequest www = UnityWebRequest.Get(staticLoadedMap.APIURL + "/" + staticLoadedMap.contaID);
+        UnityWebRequest www = UnityWebRequest.Get(staticLoadedMap.APIURL + "/mapas/" + staticLoadedMap.contaID);
 
         yield return www.SendWebRequest();
 
@@ -106,7 +115,7 @@ public class MenuScript : MonoBehaviour
 
         for (int i = 0; i < mco.mc.Length; i++)
         {
-            GameObject temp = Instantiate(mapPanelPrefab, mapPanelPrefab.transform.position, Quaternion.identity, panelParentMenu3.transform);
+            GameObject temp = Instantiate(mapPanelPrefabUsuario, mapPanelPrefab.transform.position, Quaternion.identity, panelParentMenu3.transform);
 
             string tempID = "" + mco.mc[i].id;
             temp.name = "" + (i);

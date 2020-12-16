@@ -48,7 +48,7 @@ public class LoginCadastro : MonoBehaviour
 
     IEnumerator postLoginRequest(string usuario)
     {
-        var request = new UnityWebRequest(staticLoadedMap.APILoginURL + "/login", "POST");
+        var request = new UnityWebRequest(staticLoadedMap.APIURL + "/usuarios/login", "POST");
         byte[] bodyRaw = Encoding.UTF8.GetBytes(usuario);
         request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -70,7 +70,7 @@ public class LoginCadastro : MonoBehaviour
     }
     IEnumerator postCadastroRequest(string usuario)
     {
-        var request = new UnityWebRequest(staticLoadedMap.APILoginURL + "/cadastro", "POST");
+        var request = new UnityWebRequest(staticLoadedMap.APIURL + "/usuarios/cadastro", "POST");
         byte[] bodyRaw = Encoding.UTF8.GetBytes(usuario);
         request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();

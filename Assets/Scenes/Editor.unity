@@ -317,7 +317,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 31b6d5c1f62d8eb44a5383d82bb2c2af, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3ffd2c6a8f7d8c14f92f652d0e08d531, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1258,7 +1258,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7b0e9c77937b851468d015c134a869d7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0284688abb40478468b9ba1d6767bad8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2216,7 +2216,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Salver
+  m_Text: Salvar
 --- !u!222 &824901715
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2451,7 +2451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1060677897
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3059,7 +3059,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a4922d261deef584eb1bea6f509e2f2b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 303857184fbc271469d77f34b937f5db, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3324,12 +3324,12 @@ MonoBehaviour:
   prefabTile: {fileID: 891398544400488548, guid: 9f26ffea48ae35543b914a11471ef286,
     type: 3}
   tileList:
-  - {fileID: 21300000, guid: d50adc1c8b4a71e41bb9e01b4e323db7, type: 3}
-  - {fileID: 21300000, guid: a4922d261deef584eb1bea6f509e2f2b, type: 3}
-  - {fileID: 21300000, guid: f86f06211cf8f4d4fbcbdeecca51fbf5, type: 3}
-  - {fileID: 21300000, guid: 7b0e9c77937b851468d015c134a869d7, type: 3}
-  - {fileID: 21300000, guid: 4625670e2281526468fe9ad6e79f6366, type: 3}
-  - {fileID: 21300000, guid: b2268df9bd4c4cf4d9b74c8dd948b767, type: 3}
+  - {fileID: 21300000, guid: 5a73e275fc0653b498309a32085eb0cb, type: 3}
+  - {fileID: 21300000, guid: 303857184fbc271469d77f34b937f5db, type: 3}
+  - {fileID: 21300000, guid: 93e8a7c1437d73d41a421282588c8fe8, type: 3}
+  - {fileID: 21300000, guid: 0284688abb40478468b9ba1d6767bad8, type: 3}
+  - {fileID: 21300000, guid: 3334f876ae54461468053e2ca29f9930, type: 3}
+  - {fileID: 21300000, guid: 3348069ec5b92304ab82b6abc4b0f56f, type: 3}
   selectedTileId: 0
   aproxPos: {x: 0, y: 0}
   isMakerMode: 1
@@ -4579,7 +4579,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d50adc1c8b4a71e41bb9e01b4e323db7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a73e275fc0653b498309a32085eb0cb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -15,9 +15,9 @@ public class MenuScript : MonoBehaviour
 
     public GameObject panelParentMenu2;
     public GameObject panelParentMenu3;
-    public TMP_InputField apiField;
 
     public TMP_InputField seleIDField;
+    public TextMeshProUGUI loggedID;
 
     public MapaClassOBJ mco;
 
@@ -26,9 +26,9 @@ public class MenuScript : MonoBehaviour
     void Start()
     {
         //apiField.text = "http://localhost:5000/api/mapas";
-        apiField.text = staticLoadedMap.APIURL;
 
         //staticLoadedMap.APIURL = apiField.text;
+        loggedID.text = staticLoadedMap.contaNome + " #"+ staticLoadedMap.contaID;
     }
 
     // Update is called once per frame
@@ -37,10 +37,7 @@ public class MenuScript : MonoBehaviour
 
     }
 
-    public void saveAPI()
-    {
-        staticLoadedMap.APIURL = apiField.text;
-    }
+    
 
     public void changeMenu(int id)
     {
@@ -76,6 +73,7 @@ public class MenuScript : MonoBehaviour
 
     IEnumerator getRequest()
     {
+        Debug.Log("carregando mapas id:" + seleIDField.text);
         UnityWebRequest www = UnityWebRequest.Get(staticLoadedMap.APIURL + "/mapas/" + seleIDField.text);
 
         yield return www.SendWebRequest();
@@ -123,6 +121,7 @@ public class MenuScript : MonoBehaviour
             temp.transform.Find("Map_id").GetComponent<TextMeshProUGUI>().SetText("" + tempID);
             temp.transform.Find("Map_creator").GetComponent<TextMeshProUGUI>().SetText("" + mco.mc[i].criador);
             temp.transform.Find("Map_branch").GetComponent<TextMeshProUGUI>().SetText("" + mco.mc[i].id_usuarios);
+            temp.transform.Find("Map_date").GetComponent<TextMeshProUGUI>().SetText("" + mco.mc[i].data.Split('T')[0]);
         }
 
         Debug.Log("Map Loaded");
@@ -138,9 +137,10 @@ public class MenuScript : MonoBehaviour
             string tempID = ""+classOBJ.mc[i].id;
             temp.name = ""+(i+lastMap);
             temp.transform.Find("Map_name").GetComponent<TextMeshProUGUI>().SetText("" + classOBJ.mc[i].nome);
-            temp.transform.Find("Map_id").GetComponent<TextMeshProUGUI>().SetText("" + tempID);
+            temp.transform.Find("Map_id").GetComponent<TextMeshProUGUI>().SetText("#" + tempID);
             temp.transform.Find("Map_creator").GetComponent<TextMeshProUGUI>().SetText("" + classOBJ.mc[i].criador);
-            temp.transform.Find("Map_branch").GetComponent<TextMeshProUGUI>().SetText("" + mco.mc[i].id_usuarios);
+            temp.transform.Find("Map_branch").GetComponent<TextMeshProUGUI>().SetText("Criador #" + mco.mc[i].id_usuarios);
+            temp.transform.Find("Map_date").GetComponent<TextMeshProUGUI>().SetText("" + mco.mc[i].data.Split('T')[0]);
         }
         
     }

@@ -11,9 +11,15 @@ public class LoginCadastro : MonoBehaviour
     public TMP_InputField nome;
     public TMP_InputField senha;
 
+    public TextMeshProUGUI errorTxt;
+    public TMP_InputField apiField;
+
+    UsuarioClass temp = new UsuarioClass();
+
     void Start()
     {
-        
+        apiField.text = staticLoadedMap.APIURL;
+
     }
 
     // Update is called once per frame
@@ -21,14 +27,19 @@ public class LoginCadastro : MonoBehaviour
     {
         
     }
+    public void saveAPI()
+    {
+        staticLoadedMap.APIURL = apiField.text;
+    }
 
     public void cadastrar()
     {
-        if(nome.text != "" && senha.text != "")
+
+        errorTxt.text = "";
+        if (nome.text.ToLower() != "" && senha.text.ToLower() != "")
         {
-            UsuarioClass temp = new UsuarioClass();
-            temp.nome = "" + nome.text;
-            temp.senha = "" + senha.text;
+            temp.nome = "" + nome.text.ToLower();
+            temp.senha = "" + senha.text.ToLower();
             string usuarioJson = JsonUtility.ToJson(temp);
             StartCoroutine(postCadastroRequest(usuarioJson));
         }
@@ -36,11 +47,12 @@ public class LoginCadastro : MonoBehaviour
 
     public void login()
     {
-        if (nome.text != "" && senha.text != "")
+
+        errorTxt.text = "";
+        if (nome.text.ToLower() != "" && senha.text.ToLower() != "")
         {
-            UsuarioClass temp = new UsuarioClass();
-            temp.nome = "" + nome.text;
-            temp.senha = "" + senha.text;
+            temp.nome = "" + nome.text.ToLower();
+            temp.senha = "" + senha.text.ToLower();
             string usuarioJson = JsonUtility.ToJson(temp);
             StartCoroutine(postLoginRequest(usuarioJson));
         }
@@ -58,14 +70,21 @@ public class LoginCadastro : MonoBehaviour
         if (request.isNetworkError || request.isHttpError)
         {
             Debug.LogError(request.error);
+            errorTxt.text = "API incorreta ou servidor inacessivel";
             yield break;
         }
 
-        Debug.Log("Login usuario: #" + request.downloadHandler.text);
-        staticLoadedMap.contaID = int.Parse(request.downloadHandler.text);
-        if (request.downloadHandler.text != "")
+        string textReq = request.downloadHandler.text;
+        if (textReq.Length < 10)
         {
+            Debug.Log("Login usuario: #" + request.downloadHandler.text);
+            staticLoadedMap.contaID = int.Parse(request.downloadHandler.text);
+            staticLoadedMap.contaNome = temp.nome;
             SceneManager.LoadScene("Menu");
+        }
+        else
+        {
+            errorTxt.text = textReq;
         }
     }
     IEnumerator postCadastroRequest(string usuario)
@@ -79,15 +98,22 @@ public class LoginCadastro : MonoBehaviour
 
         if (request.isNetworkError || request.isHttpError)
         {
+            errorTxt.text = "API incorreta ou servidor inacessivel";
             Debug.LogError(request.error);
             yield break;
         }
-        Debug.Log("Cadastrado usuario: #" + request.downloadHandler.text);
 
-        staticLoadedMap.contaID = int.Parse(request.downloadHandler.text);
-        if (request.downloadHandler.text != "[]")
+        string textReq = request.downloadHandler.text;
+        if (textReq.Length < 10)
         {
+            Debug.Log("Cadastrado usuario: #" + request.downloadHandler.text);
+            staticLoadedMap.contaID = int.Parse(request.downloadHandler.text);
+            staticLoadedMap.contaNome = temp.nome;
             SceneManager.LoadScene("Menu");
+        }
+        else
+        {
+
         }
 
     }

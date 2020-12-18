@@ -20,13 +20,21 @@ public class ButtonActions : MonoBehaviour
     {
         
     }
+    public void loadEditorUpdate()
+    {
+        ms = GameObject.Find("Canvas").GetComponent<MenuScript>();
+        int i = int.Parse("" + gameObject.name);
+        staticLoadedMap.loadedMap = ms.mco.mc[i];
+        staticLoadedMap.modo = "atualizar";
+        SceneManager.LoadScene("Editor");
+    }
 
     public void loadEditor()
     {
         ms = GameObject.Find("Canvas").GetComponent<MenuScript>();
         int i = int.Parse("" + gameObject.name);
         staticLoadedMap.loadedMap = ms.mco.mc[i];
-        //staticLoadedMap.loadedMap.id_usuario = ""+ms.mco.mc[i].id;
+        staticLoadedMap.modo = "criar";
         SceneManager.LoadScene("Editor");
     }
     public void DeleteMap()

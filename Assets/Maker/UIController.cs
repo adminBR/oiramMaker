@@ -44,7 +44,15 @@ public class UIController : MonoBehaviour
     {
         if (mS.startTile == null || mS.endTile == null)
             return;
-        data.SetText("2222-10-22");
+        data.SetText(System.DateTime.Now.Year + "-" + System.DateTime.Now.Month + "-" + System.DateTime.Now.Day);
+        if(staticLoadedMap.modo == "atualizar")
+        {
+            PopupSave.transform.Find("Salvar").transform.Find("Text").GetComponent<TextMeshProUGUI>().SetText("Atualizar mapa");
+            PopupSave.transform.Find("Nome").GetComponent<TMP_InputField>().text = mS.mapaInfo.nome;
+        }
+        else {
+            PopupSave.transform.Find("Salvar").transform.Find("Text").GetComponent<TextMeshProUGUI>().SetText("Salvar mapa");
+        }
         PopupSave.SetActive(true);
     }
     public void closePopup()
@@ -65,19 +73,31 @@ public class UIController : MonoBehaviour
         }
 
         mS.mapaInfo.nome = "" + nome.text;
-        mS.mapaInfo.criador = "" + criador.text;
+        mS.mapaInfo.criador = "" + staticLoadedMap.contaNome;
         mS.mapaInfo.data = "" + data.text;
         mS.mapaInfo.json = JsonUtility.ToJson(tempTileList);
         mS.mapJson = JsonUtility.ToJson(mS.mapaInfo);
         mS.mapaInfo.id_usuarios = staticLoadedMap.contaID;
 
-        StartCoroutine(postRequest(mS.mapJson));
+        if(staticLoadedMap.modo == "atualizar")
+        {
+            StartCoroutine(postRequest(mS.mapJson, mS.mapaInfo.id));
+        }
+        else
+        {
+            StartCoroutine(postRequest(mS.mapJson,-1));
+        }
         
     }
 
-    IEnumerator postRequest(string map)
+    IEnumerator postRequest(string map,int id)
     {
-        var request = new UnityWebRequest(staticLoadedMap.APIURL + "/mapas", "POST");
+        string url = staticLoadedMap.APIURL + "/mapas";
+        if (id != -1) {
+            url = staticLoadedMap.APIURL + "/mapas/" + id;
+        }
+
+        var request = new UnityWebRequest(url, "POST");
         byte[] bodyRaw = Encoding.UTF8.GetBytes(map);
         request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
